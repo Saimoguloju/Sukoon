@@ -34,6 +34,16 @@ npm run build    # production build
 - **Mood check-ins** are saved in `localStorage` only — nothing leaves your device.
 - Respects `prefers-reduced-motion`.
 
+## Future Roadmap (Planned Features)
+
+To enrich the Sukoon stress-relief experience while remaining 100% client-side and media-free, the following features are planned:
+
+- **Japa Mala (जाप) Counter**: A tactile, rhythmic chanting counter featuring 108 virtual beads that advance with a satisfying, synthesized drop chime upon sliding.
+- **Singing Bowl (ध्वनि स्नान) Resonance**: An interactive virtual brass bowl that generates a sustained, multi-harmonic resonant tone in response to circling touch/mouse movements.
+- **Sand Painting (धूलि चित्र)**: A sandbox drawing canvas where users create flowing sand trails that slowly diffuse and dissolve over time, meditating on the theme of impermanence.
+- **Custom Pranayama Pacing**: Sliders to build custom breathing patterns by adjusting the timing of *Puraka* (inhale), *Kumbhaka* (hold), *Rechaka* (exhale), and *Shoonyaka* (suspend).
+- **Gratitude Log (आभार)**: A private, daily micro-journaling prompt to record three positive moments from the day, stored locally.
+
 ## Tech
 
 - Next.js 16 · React 19 · TypeScript · Tailwind CSS v4 · Hind + Yatra One (Devanagari) fonts
