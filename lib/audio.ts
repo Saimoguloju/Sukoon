@@ -339,8 +339,86 @@ export class SoundEngine {
     o.stop(now + 0.14);
   }
 
+  // Quick, light wood-bead pop chime.
+  async bead() {
+    const ctx = this.ensure();
+    if (ctx.state === "suspended") await ctx.resume();
+    const now = ctx.currentTime;
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = "sine";
+    o.frequency.setValueAtTime(1100 + Math.random() * 200, now);
+    o.frequency.exponentialRampToValueAtTime(500, now + 0.06);
+    g.gain.setValueAtTime(0.0001, now);
+    g.gain.exponentialRampToValueAtTime(0.18, now + 0.002);
+    g.gain.exponentialRampToValueAtTime(0.0001, now + 0.06);
+    o.connect(g).connect(this.master!);
+    o.start(now);
+    o.stop(now + 0.07);
+  }
+
+  // A sustained singing bowl drone node
+  private bowlOscs: { osc: OscillatorNode; gain: GainNode }[] = [];
+  private bowlGain: GainNode | null = null;
+
+  async startBowl() {
+    const ctx = this.ensure();
+    if (ctx.state === "suspended") await ctx.resume();
+    if (this.bowlGain) return; // already running
+
+    const now = ctx.currentTime;
+    const masterBowl = ctx.createGain();
+    masterBowl.gain.setValueAtTime(0.0001, now);
+    masterBowl.connect(this.master!);
+    this.bowlGain = masterBowl;
+
+    const base = 180; // warm tonic frequency
+    const partials = [1, 2.76, 5.4, 8.1];
+    const gains = [0.45, 0.28, 0.18, 0.08];
+
+    partials.forEach((p, idx) => {
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.frequency.value = base * p;
+      o.type = "sine";
+      g.gain.value = gains[idx];
+      o.connect(g).connect(masterBowl);
+      o.start(now);
+      this.bowlOscs.push({ osc: o, gain: g });
+    });
+  }
+
+  setBowlVolume(vol: number) {
+    if (!this.bowlGain) return;
+    const ctx = this.ensure();
+    const target = Math.max(0, Math.min(1, vol)) * 0.5;
+    this.bowlGain.gain.cancelScheduledValues(ctx.currentTime);
+    this.bowlGain.gain.setTargetAtTime(target, ctx.currentTime, 0.15);
+  }
+
+  stopBowl() {
+    if (!this.bowlGain) return;
+    const ctx = this.ctx!;
+    const now = ctx.currentTime;
+    const bg = this.bowlGain;
+    bg.gain.cancelScheduledValues(now);
+    bg.gain.exponentialRampToValueAtTime(0.0001, now + 1.2);
+    const oscsToStop = this.bowlOscs;
+    this.bowlOscs = [];
+    this.bowlGain = null;
+    window.setTimeout(() => {
+      oscsToStop.forEach(({ osc }) => {
+        try {
+          osc.stop();
+        } catch {}
+      });
+      bg.disconnect();
+    }, 1500);
+  }
+
   async stopAll() {
     [...this.voices.keys()].forEach((id) => this.setVolume(id, 0));
+    this.stopBowl();
   }
 }
 

@@ -11,6 +11,8 @@ import Rangoli from "./components/Rangoli";
 import Smoke from "./components/Smoke";
 import BubblePop from "./components/BubblePop";
 import MoodCheck from "./components/MoodCheck";
+import Mala from "./components/Mala";
+import Bowl from "./components/Bowl";
 
 function Clock() {
   const [now, setNow] = useState<string>("");
@@ -48,6 +50,10 @@ export default function Page() {
         return <Smoke />;
       case "pop":
         return <BubblePop />;
+      case "mala":
+        return <Mala />;
+      case "bowl":
+        return <Bowl />;
       case "mood":
         return <MoodCheck />;
     }

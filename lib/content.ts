@@ -27,7 +27,9 @@ export type ModuleId =
   | "rangoli"
   | "smoke"
   | "pop"
-  | "mood";
+  | "mood"
+  | "mala"
+  | "bowl";
 
 export const modules: {
   id: ModuleId;
@@ -43,5 +45,7 @@ export const modules: {
   { id: "rangoli", label: "Rangoli", glyph: "रंग", icon: "✺", blurb: "Draw a living symmetric mandala" },
   { id: "smoke", label: "Incense", glyph: "धूप", icon: "≈", blurb: "Press & hold — let the smoke rise" },
   { id: "pop", label: "Pop", glyph: "टप", icon: "○", blurb: "Pop bubbles, release tension" },
+  { id: "mala", label: "Mala", glyph: "जाप", icon: "📿", blurb: "Rhythmic breathing and chanting counter" },
+  { id: "bowl", label: "Bowl", glyph: "ध्वनि", icon: "🥣", blurb: "Interactive singing bowl resonance" },
   { id: "mood", label: "Check-in", glyph: "मन", icon: "✦", blurb: "Note how your mann (mind) feels" },
 ];

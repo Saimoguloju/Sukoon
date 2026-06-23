@@ -3,6 +3,8 @@
 An **Indian stress-relief web app**. *Sukoon (सुकून)* means a quiet, settled
 peace of mind — and that's exactly what this little app is for.
 
+**Live URL**: [sukoon-omega-five.vercel.app](https://sukoon-omega-five.vercel.app/)
+
 Built from scratch with **Next.js 16 (App Router) + React 19 + Tailwind v4**.
 Everything runs client-side — no accounts, no backend, no media files. All
 sounds are **synthesized live in the browser** with the Web Audio API.

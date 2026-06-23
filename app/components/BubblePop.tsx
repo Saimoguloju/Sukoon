@@ -46,7 +46,7 @@ export default function BubblePop() {
       </div>
 
       <div
-        className="mt-4 grid gap-1.5 rounded-3xl border border-white/10 bg-white/5 p-3"
+        className="mt-4 grid w-full gap-1.5 rounded-3xl border border-white/10 bg-white/5 p-3"
         style={{ gridTemplateColumns: `repeat(${COLS}, minmax(0,1fr))` }}
       >
         {Array.from({ length: TOTAL }).map((_, i) => {
