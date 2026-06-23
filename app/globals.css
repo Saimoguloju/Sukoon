@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+
+  /* Indian palette: marigold, saffron, sindoor, haldi, peacock, henna */
+  --color-marigold: #f0a13a;
+  --color-saffron: #e2571e;
+  --color-sindoor: #c0392b;
+  --color-haldi: #e6c34a;
+  --color-peacock: #1f8a8a;
+  --color-henna: #8a9a3c;
+  /* primary accent alias used across components */
+  --color-sakura: #f0a13a;
+}
+
+:root {
+  --bg-1: #2a1410;
+  --bg-2: #3d1d2a;
+  --bg-3: #221733;
+  --glass: rgba(255, 240, 220, 0.06);
+  --glass-border: rgba(255, 220, 180, 0.14);
+  --text: #f6ece0;
+  --text-dim: rgba(246, 236, 224, 0.62);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  color: var(--text);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  background:
+    radial-gradient(120% 90% at 15% 10%, rgba(240, 161, 58, 0.28), transparent 60%),
+    radial-gradient(120% 90% at 85% 90%, rgba(192, 57, 43, 0.26), transparent 55%),
+    linear-gradient(160deg, var(--bg-1), var(--bg-2) 55%, var(--bg-3));
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: var(--font-display), var(--font-sans), serif;
+}
+
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+}
+
+.text-dim {
+  color: var(--text-dim);
+}
+
+/* Subtle grain to evoke washi paper */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- animations ---------- */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-18px) translateX(8px); }
+}
+@keyframes drift {
+  0% { transform: translateX(-5%); }
+  100% { transform: translateX(105%); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pop-out {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.2); opacity: 0; }
+}
+@keyframes shimmer {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.float-slow {
+  animation: float-slow 12s ease-in-out infinite;
+}
+
+/* Marigold (genda) petal that drifts across the screen */
+.petal {
+  position: fixed;
+  top: -40px;
+  z-index: 0;
+  pointer-events: none;
+  color: var(--color-marigold);
+  opacity: 0.55;
+}
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 99px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
