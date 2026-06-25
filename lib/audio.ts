@@ -357,6 +357,42 @@ export class SoundEngine {
     o.stop(now + 0.07);
   }
 
+  // Bow-string release — a quick descending pluck for the archery game.
+  async twang() {
+    const ctx = this.ensure();
+    if (ctx.state === "suspended") await ctx.resume();
+    const now = ctx.currentTime;
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = "triangle";
+    o.frequency.setValueAtTime(440, now);
+    o.frequency.exponentialRampToValueAtTime(120, now + 0.18);
+    g.gain.setValueAtTime(0.0001, now);
+    g.gain.exponentialRampToValueAtTime(0.3, now + 0.004);
+    g.gain.exponentialRampToValueAtTime(0.0001, now + 0.22);
+    o.connect(g).connect(this.master!);
+    o.start(now);
+    o.stop(now + 0.24);
+  }
+
+  // Dull low thud — collision / crash.
+  async thud() {
+    const ctx = this.ensure();
+    if (ctx.state === "suspended") await ctx.resume();
+    const now = ctx.currentTime;
+    const src = ctx.createBufferSource();
+    src.buffer = this.brown;
+    const lp = ctx.createBiquadFilter();
+    lp.type = "lowpass";
+    lp.frequency.value = 280;
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0.55, now);
+    g.gain.exponentialRampToValueAtTime(0.0001, now + 0.45);
+    src.connect(lp).connect(g).connect(this.master!);
+    src.start(now);
+    src.stop(now + 0.5);
+  }
+
   // A sustained singing bowl drone node
   private bowlOscs: { osc: OscillatorNode; gain: GainNode }[] = [];
   private bowlGain: GainNode | null = null;

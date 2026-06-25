@@ -34,7 +34,9 @@ export type ModuleId =
   | "mala"
   | "bowl"
   | "kintsugi"
-  | "mung";
+  | "mung"
+  | "archery"
+  | "race";
 
 export const modules: {
   id: ModuleId;
@@ -54,5 +56,7 @@ export const modules: {
   { id: "bowl", label: "Bowl", glyph: "ध्वनि", icon: "🥣", blurb: "Interactive singing bowl resonance" },
   { id: "kintsugi", label: "Kintsugi", glyph: "金継", icon: "🏺", blurb: "金継ぎ — mend the cracks with gold (Japan)" },
   { id: "mung", label: "Space-out", glyph: "멍", icon: "🌫", blurb: "멍때리기 — the Korean art of doing nothing" },
+  { id: "archery", label: "Archery", glyph: "धनुष", icon: "🏹", blurb: "धनुष — Arjuna's aim: loose every arrow, 50 levels" },
+  { id: "race", label: "Retro Race", glyph: "रेस", icon: "🚗", blurb: "Dodge traffic in a vintage Ambassador & Padmini" },
   { id: "mood", label: "Check-in", glyph: "मन", icon: "✦", blurb: "Note how your mann (mind) feels" },
 ];

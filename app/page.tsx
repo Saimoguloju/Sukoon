@@ -15,6 +15,8 @@ import Mala from "./components/Mala";
 import Bowl from "./components/Bowl";
 import Kintsugi from "./components/Kintsugi";
 import SpaceOut from "./components/SpaceOut";
+import Archery from "./components/Archery";
+import CarRace from "./components/CarRace";
 
 function Clock() {
   const [now, setNow] = useState<string>("");
@@ -61,6 +63,10 @@ export default function Page() {
         return <Kintsugi />;
       case "mung":
         return <SpaceOut />;
+      case "archery":
+        return <Archery />;
+      case "race":
+        return <CarRace />;
       case "mood":
         return <MoodCheck />;
     }
