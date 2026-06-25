@@ -35,6 +35,7 @@ function Clock() {
 
 export default function Page() {
   const [view, setView] = useState<ModuleId>("home");
+  const half = Math.ceil(modules.length / 2);
 
   const render = () => {
     switch (view) {
@@ -87,41 +88,53 @@ export default function Page() {
         <Clock />
       </header>
 
-      <main className="relative z-10 flex flex-1 items-stretch px-4 pb-28 sm:px-8">
+      <main className="relative z-10 flex flex-1 items-stretch px-16 pb-10 sm:px-20">
         <div key={view} className="animate-fade-up flex w-full">
           {render()}
         </div>
       </main>
 
-      {/* Navigation dock */}
-      <nav className="fixed inset-x-0 bottom-0 z-20 flex justify-center px-3 pb-4">
-        <div className="glass flex max-w-full gap-1 overflow-x-auto rounded-2xl p-1.5 shadow-2xl">
-          {modules.map((m) => {
-            const active = m.id === view;
-            return (
-              <button
-                key={m.id}
-                onClick={() => setView(m.id)}
-                title={m.blurb}
-                className={`flex min-w-16 flex-col items-center gap-0.5 rounded-xl px-3 py-2 text-xs transition-all ${
-                  active
-                    ? "bg-white/15 text-white"
-                    : "text-dim hover:bg-white/5 hover:text-white"
-                }`}
-              >
-                <span
-                  className={`text-base ${
-                    active ? "text-[var(--color-marigold)]" : ""
+      {/* Navigation rails — split half on the left, half on the right */}
+      {(
+        [
+          { side: "left" as const, items: modules.slice(0, half) },
+          { side: "right" as const, items: modules.slice(half) },
+        ]
+      ).map(({ side, items }) => (
+        <nav
+          key={side}
+          className={`fixed top-1/2 z-20 -translate-y-1/2 ${
+            side === "left" ? "left-0 pl-2 sm:pl-3" : "right-0 pr-2 sm:pr-3"
+          }`}
+        >
+          <div className="glass flex max-h-[88dvh] flex-col gap-1 overflow-y-auto rounded-2xl p-1.5 shadow-2xl">
+            {items.map((m) => {
+              const active = m.id === view;
+              return (
+                <button
+                  key={m.id}
+                  onClick={() => setView(m.id)}
+                  title={m.blurb}
+                  className={`flex w-12 flex-col items-center gap-0.5 rounded-lg px-1.5 py-1.5 text-[10px] transition-all ${
+                    active
+                      ? "bg-white/15 text-white"
+                      : "text-dim hover:bg-white/5 hover:text-white"
                   }`}
                 >
-                  {m.glyph}
-                </span>
-                <span className="whitespace-nowrap">{m.label}</span>
-              </button>
-            );
-          })}
-        </div>
-      </nav>
+                  <span
+                    className={`text-xs ${
+                      active ? "text-[var(--color-marigold)]" : ""
+                    }`}
+                  >
+                    {m.glyph}
+                  </span>
+                  <span className="whitespace-nowrap">{m.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </nav>
+      ))}
     </div>
   );
 }
