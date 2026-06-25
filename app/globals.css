@@ -11,6 +11,8 @@
   --color-haldi: #e6c34a;
   --color-peacock: #1f8a8a;
   --color-henna: #8a9a3c;
+  /* deep twilight indigo — used in breathing orb & space-out aura */
+  --color-indigo: #3a2b5c;
   /* primary accent alias used across components */
   --color-sakura: #f0a13a;
 }

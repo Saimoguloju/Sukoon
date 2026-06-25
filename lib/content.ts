@@ -11,6 +11,9 @@ export const quotes: { text: string; source: string }[] = [
   { text: "Let go of what has passed. Let go of what may yet come.", source: "The Buddha" },
   { text: "Calmness of mind is one of the beautiful jewels of wisdom.", source: "James Allen" },
   { text: "शांति, शांति, शांति — Peace in body, peace in mind, peace in spirit.", source: "Shanti Mantra" },
+  { text: "侘寂 — There is beauty in the imperfect, the impermanent, the incomplete.", source: "Wabi-sabi (Japan)" },
+  { text: "Fall seven times, stand up eight. 七転び八起き", source: "Japanese proverb" },
+  { text: "멍때리기 — Sometimes the most productive thing you can do is nothing at all.", source: "Korean wisdom" },
 ];
 
 export function quoteOfNow() {
@@ -29,7 +32,9 @@ export type ModuleId =
   | "pop"
   | "mood"
   | "mala"
-  | "bowl";
+  | "bowl"
+  | "kintsugi"
+  | "mung";
 
 export const modules: {
   id: ModuleId;
@@ -47,5 +52,7 @@ export const modules: {
   { id: "pop", label: "Pop", glyph: "टप", icon: "○", blurb: "Pop bubbles, release tension" },
   { id: "mala", label: "Mala", glyph: "जाप", icon: "📿", blurb: "Rhythmic breathing and chanting counter" },
   { id: "bowl", label: "Bowl", glyph: "ध्वनि", icon: "🥣", blurb: "Interactive singing bowl resonance" },
+  { id: "kintsugi", label: "Kintsugi", glyph: "金継", icon: "🏺", blurb: "金継ぎ — mend the cracks with gold (Japan)" },
+  { id: "mung", label: "Space-out", glyph: "멍", icon: "🌫", blurb: "멍때리기 — the Korean art of doing nothing" },
   { id: "mood", label: "Check-in", glyph: "मन", icon: "✦", blurb: "Note how your mann (mind) feels" },
 ];

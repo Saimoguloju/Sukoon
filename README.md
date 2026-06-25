@@ -19,7 +19,30 @@ sounds are **synthesized live in the browser** with the Web Audio API.
 | **Rangoli रंग** | रंगोली floor art | Draw anywhere — strokes bloom into a symmetric 6/8/12-fold mandala in marigold, sindoor, peacock… |
 | **Incense धूप** | Agarbatti / dhoop | **Press & hold anywhere** to release curling smoke that rises and carries tension away |
 | **Pop टप** | Tactile stress toys | Endless bubble wrap with a satisfying synthesized pop |
+| **Mala जाप** | जप — chanting | A 108-bead japa counter with mantras and a synthesized bead chime |
+| **Bowl ध्वनि** | Singing bowl | Rub the rim of a virtual brass bowl to build a resonant drone |
+| **Kintsugi 金継** | 🇯🇵 金継ぎ — Japan | Mend a cracked bowl by tracing its seams with gold — beauty in imperfection (*wabi-sabi*) |
+| **Space-out 멍** | 🇰🇷 멍때리기 — Korea | The art of doing nothing. Stay perfectly still; the moment you move, your session ends. Beat your record |
 | **Check-in मन** | Daily mood ritual | Note how your *mann* feels; private 7-day trend stored on your device |
+
+### Why Kintsugi & Space-out?
+
+Sukoon began rooted in Indian calm, then drew in two of East Asia's most loved
+stress-relief traditions:
+
+- **Kintsugi (金継ぎ)** is the Japanese practice of repairing broken pottery
+  with gold lacquer, treating the cracks as part of the object's story rather
+  than a flaw to hide. It's the hands-on expression of *wabi-sabi* — finding
+  beauty in the imperfect and impermanent.
+- **Mung / Space-out (멍때리기)** is the Korean art of deliberately zoning out
+  and doing absolutely nothing. It's taken so seriously that Seoul hosts an
+  annual **Space-Out Competition**, where the calmest, stillest contestant wins.
+  In a culture of relentless busyness, doing nothing is a radical, restorative
+  act.
+
+Other traditions that shaped the app: Japanese **Shinrin-yoku** (森林浴, forest
+bathing) inspires the layered nature soundscapes, and Korean & Japanese
+**Seon/Zen meditation** (선/禅) inspires the breathing and trataka modules.
 
 ## Run it
 
@@ -40,11 +63,12 @@ npm run build    # production build
 
 To enrich the Sukoon stress-relief experience while remaining 100% client-side and media-free, the following features are planned:
 
-- **Japa Mala (जाप) Counter**: A tactile, rhythmic chanting counter featuring 108 virtual beads that advance with a satisfying, synthesized drop chime upon sliding.
-- **Singing Bowl (ध्वनि स्नान) Resonance**: An interactive virtual brass bowl that generates a sustained, multi-harmonic resonant tone in response to circling touch/mouse movements.
+- **Shinrin-yoku (森林浴) Walk**: A guided forest-bathing sequence with 5-4-3-2-1 sensory grounding prompts over a living forest soundscape.
 - **Sand Painting (धूलि चित्र)**: A sandbox drawing canvas where users create flowing sand trails that slowly diffuse and dissolve over time, meditating on the theme of impermanence.
 - **Custom Pranayama Pacing**: Sliders to build custom breathing patterns by adjusting the timing of *Puraka* (inhale), *Kumbhaka* (hold), *Rechaka* (exhale), and *Shoonyaka* (suspend).
 - **Gratitude Log (आभार)**: A private, daily micro-journaling prompt to record three positive moments from the day, stored locally.
+
+> Recently shipped: **Japa Mala (जाप)** counter, **Singing Bowl (ध्वनि)** resonance, **Kintsugi (金継ぎ)**, and **Space-out (멍때리기)**.
 
 ## Tech
 

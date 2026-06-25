@@ -13,6 +13,8 @@ import BubblePop from "./components/BubblePop";
 import MoodCheck from "./components/MoodCheck";
 import Mala from "./components/Mala";
 import Bowl from "./components/Bowl";
+import Kintsugi from "./components/Kintsugi";
+import SpaceOut from "./components/SpaceOut";
 
 function Clock() {
   const [now, setNow] = useState<string>("");
@@ -54,6 +56,10 @@ export default function Page() {
         return <Mala />;
       case "bowl":
         return <Bowl />;
+      case "kintsugi":
+        return <Kintsugi />;
+      case "mung":
+        return <SpaceOut />;
       case "mood":
         return <MoodCheck />;
     }
