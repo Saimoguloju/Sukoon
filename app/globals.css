@@ -98,6 +98,62 @@ body {
   animation: float-slow 12s ease-in-out infinite;
 }
 
+/* ---- interactive micro-animations ---- */
+@keyframes pop-in {
+  0% { opacity: 0; transform: translateY(16px) scale(0.96); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-pop-in {
+  animation: pop-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* tactile press feedback for any clickable */
+.press {
+  transition: transform 0.12s ease;
+}
+.press:active {
+  transform: scale(0.95);
+}
+
+/* sweeping light sheen on hover */
+.card-sheen {
+  position: relative;
+  overflow: hidden;
+}
+.card-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.12) 50%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.7s ease;
+  pointer-events: none;
+}
+.card-sheen:hover::after {
+  transform: translateX(120%);
+}
+
+/* soft radial light that trails the cursor */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 420px;
+  height: 420px;
+  margin: -210px 0 0 -210px;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle, rgba(240, 161, 58, 0.12), transparent 65%);
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+
 /* Marigold (genda) petal that drifts across the screen */
 .petal {
   position: fixed;
