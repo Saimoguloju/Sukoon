@@ -1,15 +1,17 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { modules, quotes, quoteOfNow, type ModuleId } from "@/lib/content";
+import { useI18n } from "@/lib/i18n";
+import { getStreak } from "@/lib/streak";
 
-function greeting() {
+function greetingKey() {
   const h = new Date().getHours();
-  if (h < 5) return { en: "Still awake?", hi: "नमस्ते" };
-  if (h < 11) return { en: "Good morning", hi: "सुप्रभात" };
-  if (h < 17) return { en: "Good afternoon", hi: "नमस्ते" };
-  if (h < 21) return { en: "Good evening", hi: "शुभ संध्या" };
-  return { en: "Time to rest", hi: "शुभ रात्रि" };
+  if (h < 5) return "greet.late";
+  if (h < 11) return "greet.morning";
+  if (h < 17) return "greet.afternoon";
+  if (h < 21) return "greet.evening";
+  return "greet.night";
 }
 
 // a warm Indian accent per card, cycled by position
@@ -25,9 +27,15 @@ const ACCENTS = [
 ];
 
 export default function Home({ onPick }: { onPick: (id: ModuleId) => void }) {
-  const g = greeting();
-  const cards = useMemo(() => modules.filter((m) => m.id !== "home"), []);
+  const { t } = useI18n();
+  const cards = useMemo(
+    () => modules.filter((m) => m.id !== "home" && m.id !== "today"),
+    [],
+  );
   const [quote, setQuote] = useState(quoteOfNow);
+  const [streak, setStreak] = useState(0);
+
+  useEffect(() => setStreak(getStreak().count), []);
 
   const shuffleQuote = () => {
     let next = quote;
@@ -37,10 +45,20 @@ export default function Home({ onPick }: { onPick: (id: ModuleId) => void }) {
 
   return (
     <div className="mx-auto w-full max-w-4xl py-6">
-      <p className="text-dim font-display text-base">{g.hi}</p>
-      <h1 className="font-display mt-1 text-3xl leading-tight sm:text-4xl">
-        {g.en}. Lijiye ek gehri saans.
-      </h1>
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="text-dim font-display text-base">{t(greetingKey())}</p>
+          <h1 className="font-display mt-1 text-3xl leading-tight sm:text-4xl">
+            {t("home.breathLine")}
+          </h1>
+        </div>
+        {streak > 0 && (
+          <div className="glass flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-sm">
+            <span>🔥</span>
+            <span className="font-semibold tabular-nums">{streak}</span>
+          </div>
+        )}
+      </div>
 
       <blockquote className="glass card-sheen group mt-6 rounded-2xl px-5 py-4">
         <p className="font-display text-lg italic leading-relaxed">
@@ -53,13 +71,28 @@ export default function Home({ onPick }: { onPick: (id: ModuleId) => void }) {
             title="Another reflection"
             className="press text-dim rounded-full px-2 py-1 text-xs transition hover:text-white"
           >
-            ↻ another
+            ↻ {t("home.another")}
           </button>
         </footer>
       </blockquote>
 
+      {/* daily ritual CTA */}
+      <button
+        onClick={() => onPick("today")}
+        className="press card-sheen group mt-4 flex w-full items-center gap-4 overflow-hidden rounded-2xl bg-gradient-to-r from-[var(--color-marigold)]/25 to-[var(--color-sindoor)]/20 px-5 py-4 text-left transition hover:from-[var(--color-marigold)]/35"
+      >
+        <span className="text-3xl transition-transform group-hover:scale-110">
+          🌅
+        </span>
+        <span className="flex-1">
+          <span className="block font-medium">{t("home.startRitual")}</span>
+          <span className="text-dim text-xs">{t("ritual.subtitle")}</span>
+        </span>
+        <span className="text-dim text-xl">→</span>
+      </button>
+
       <p className="text-dim mt-8 mb-3 text-sm tracking-wide uppercase">
-        Choose a moment
+        {t("home.choose")}
       </p>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         {cards.map((m, i) => {
@@ -89,7 +122,9 @@ export default function Home({ onPick }: { onPick: (id: ModuleId) => void }) {
               >
                 {m.glyph}
               </span>
-              <span className="relative mt-2 font-medium">{m.label}</span>
+              <span className="relative mt-2 font-medium">
+                {t(`mod.${m.id}`, m.label)}
+              </span>
               <span className="text-dim relative mt-0.5 text-xs leading-snug">
                 {m.blurb}
               </span>
@@ -98,9 +133,7 @@ export default function Home({ onPick }: { onPick: (id: ModuleId) => void }) {
         })}
       </div>
 
-      <p className="text-dim mt-8 text-center text-xs">
-        Rooted in Indian calm — सुकून (sukoon): a quiet, settled peace of mind.
-      </p>
+      <p className="text-dim mt-8 text-center text-xs">{t("home.rooted")}</p>
     </div>
   );
 }

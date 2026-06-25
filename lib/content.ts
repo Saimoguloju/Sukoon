@@ -24,6 +24,7 @@ export function quoteOfNow() {
 
 export type ModuleId =
   | "home"
+  | "today"
   | "breathe"
   | "trataka"
   | "sounds"
@@ -46,6 +47,7 @@ export const modules: {
   blurb: string;
 }[] = [
   { id: "home", label: "Home", glyph: "ॐ", icon: "❀", blurb: "Your calm starting point" },
+  { id: "today", label: "Today", glyph: "आज", icon: "🌅", blurb: "A short daily ritual — keep your streak alive" },
   { id: "breathe", label: "Pranayama", glyph: "श्वास", icon: "◯", blurb: "Yogic breathing to steady the mind" },
   { id: "trataka", label: "Trataka", glyph: "दीप", icon: "☼", blurb: "त्राटक — gaze softly at the flame" },
   { id: "sounds", label: "Naad", glyph: "नाद", icon: "♫", blurb: "Monsoon, temple bells, tanpura & more" },

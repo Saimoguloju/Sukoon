@@ -44,6 +44,17 @@ Other traditions that shaped the app: Japanese **Shinrin-yoku** (森林浴, fore
 bathing) inspires the layered nature soundscapes, and Korean & Japanese
 **Seon/Zen meditation** (선/禅) inspires the breathing and trataka modules.
 
+## Growth features
+
+- **Installable PWA + offline** — add Sukoon to your home screen; it works with no
+  network (offline-first service worker, app manifest). No app store needed.
+- **Daily ritual + streak (आज)** — a short guided breath + gratitude practice that
+  tracks a 🔥 streak in `localStorage`, the proven driver of return visits.
+- **Quick-Calm SOS (✸)** — an always-visible button that opens a fullscreen 4-7-8
+  breathing + 5-4-3-2-1 grounding space for anxious moments.
+- **5 languages** — English, हिन्दी, தமிழ், తెలుగు, বাংলা via a lightweight i18n
+  layer, with graceful fallback to English.
+
 ## Run it
 
 ```bash

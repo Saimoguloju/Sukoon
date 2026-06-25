@@ -2,7 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { modules, type ModuleId } from "@/lib/content";
+import { useI18n, LANGS, type Lang } from "@/lib/i18n";
 import Petals from "./components/Petals";
+import Today from "./components/Today";
+import QuickCalm from "./components/QuickCalm";
+import PwaRegister from "./components/PwaRegister";
 import Home from "./components/Home";
 import Breathe from "./components/Breathe";
 import Trataka from "./components/Trataka";
@@ -45,6 +49,24 @@ function CursorGlow() {
   return <div ref={ref} aria-hidden className="cursor-glow hidden md:block" />;
 }
 
+function LangSwitch() {
+  const { lang, setLang } = useI18n();
+  return (
+    <select
+      value={lang}
+      onChange={(e) => setLang(e.target.value as Lang)}
+      aria-label="Language"
+      className="glass press cursor-pointer rounded-full px-2 py-1.5 text-xs text-dim outline-none transition hover:text-white"
+    >
+      {LANGS.map((l) => (
+        <option key={l.code} value={l.code} className="bg-[#2a1410] text-white">
+          {l.native}
+        </option>
+      ))}
+    </select>
+  );
+}
+
 function Clock() {
   const [now, setNow] = useState<string>("");
   useEffect(() => {
@@ -65,11 +87,14 @@ function Clock() {
 export default function Page() {
   const [view, setView] = useState<ModuleId>("home");
   const half = Math.ceil(modules.length / 2);
+  const { t } = useI18n();
 
   const render = () => {
     switch (view) {
       case "home":
         return <Home onPick={setView} />;
+      case "today":
+        return <Today />;
       case "breathe":
         return <Breathe />;
       case "trataka":
@@ -103,6 +128,7 @@ export default function Page() {
     <div className="grain relative flex min-h-dvh flex-col">
       <Petals />
       <CursorGlow />
+      <QuickCalm />
 
       <header className="relative z-10 flex items-center justify-between px-5 py-4 sm:px-8">
         <button
@@ -114,12 +140,16 @@ export default function Page() {
           </span>
           <span className="leading-tight">
             <span className="font-display block text-lg">Sukoon</span>
-            <span className="text-dim block text-[10px] tracking-[0.25em] uppercase">
-              thoda sukoon, har din
+            <span className="text-dim block text-[10px] tracking-[0.2em] uppercase">
+              {t("tagline")}
             </span>
           </span>
         </button>
-        <Clock />
+        <div className="flex items-center gap-2">
+          <PwaRegister />
+          <LangSwitch />
+          <Clock />
+        </div>
       </header>
 
       <main className="relative z-10 flex flex-1 items-stretch px-16 pb-10 sm:px-20">
@@ -169,7 +199,9 @@ export default function Page() {
                   >
                     {m.glyph}
                   </span>
-                  <span className="whitespace-nowrap">{m.label}</span>
+                  <span className="whitespace-nowrap">
+                    {t(`mod.${m.id}`, m.label)}
+                  </span>
                 </button>
               );
             })}
